@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Tumor Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+    <h1>🧠 Brain Tumor Detection</h1>
+    <p class="subtitle">AI-powered MRI analysis</p>
+
+    <form method="POST" enctype="multipart/form-data" id="uploadForm" onsubmit="showLoader()">
+
+        <div class="drop-zone" id="dropZone">
+            <p>🧪 Drag & Drop MRI Image</p>
+            <span>or click to browse</span>
+            <input type="file" name="file" id="fileInput" required>
+        </div>
+
+        <img id="preview" class="preview-img" />
+
+        <button type="submit">🔍 Analyze</button>
+    </form>
+
+    <div class="loader" id="loader"></div>
+
+    {% if result %}
+    <div class="result-card">
+        <h2>{{ result }}</h2>
+        <p>Confidence: {{ confidence }}</p>
+
+        <div class="confidence-bar">
+            <div class="confidence-fill" style="width: {{ confidence }};"></div>
+        </div>
+
+        <img src="{{ file_path }}" class="result-img">
+    </div>
+    {% endif %}
+</div>
+
+<script>
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+
+// Click to upload
+dropZone.addEventListener("click", () => fileInput.click());
+
+// Drag effects
+["dragenter", "dragover"].forEach(event => {
+    dropZone.addEventListener(event, e => {
+        e.preventDefault();
+        dropZone.classList.add("drag-active");
+    });
+});
+
+["dragleave", "drop"].forEach(event => {
+    dropZone.addEventListener(event, e => {
+        e.preventDefault();
+        dropZone.classList.remove("drag-active");
+    });
+});
+
+// Drop file
+dropZone.addEventListener("drop", e => {
+    fileInput.files = e.dataTransfer.files;
+    showPreview(fileInput.files[0]);
+});
+
+// Preview on select
+fileInput.addEventListener("change", () => {
+    showPreview(fileInput.files[0]);
+});
+
+function showPreview(file) {
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+}
+
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+}
+</script>
+
+</body>
+</html>
