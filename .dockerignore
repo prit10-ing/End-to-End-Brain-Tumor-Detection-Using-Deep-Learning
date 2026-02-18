@@ -1,35 +1,46 @@
-# Python cache
-__pycache__/
+# Python
 *.pyc
 *.pyo
 *.pyd
 
-# Virtual environments
-venv/
-venv310/
-.env
-
-# Logs
-logs/
-*.log
-
-# Git files
-.git/
+# Git
+.git
 .gitignore
-
-# VS Code
-.vscode/
-
-# Jupyter
-*.ipynb
-.ipynb_checkpoints/
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# Uploads (optional – usually not needed in image)
-uploads/
+# Logs
+*.log
 
-# Node / frontend junk (if any later)
-node_modules/
+# Testing
+tests/
+pytest_cache/
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# Build files
+build/
+dist/
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+
+# Virtual Environments
+.env
+.venv
+env/
+ENV/
+new_env/
+new_venv/
+venv.bak/
+env.bak/
+
+__pycache__/
+notebook/
+
